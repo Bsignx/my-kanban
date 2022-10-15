@@ -12,8 +12,9 @@ const Home: NextPage = () => {
   return (
     <Grid
       gridTemplate={`
-        "sidebar header" 100px
+        "sidebar header" 100px 
         "sidebar main"  1fr
+        / 300px 1fr
       `}
       h="100vh"
     >
