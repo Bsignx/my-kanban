@@ -14,4 +14,9 @@ const colors = {
   alert: { 100: '#FF9898', 200: '#EA5555' },
 };
 
-export const theme = extendTheme({ colors });
+const fonts = {
+  heading: 'Plus Jakarta Sans',
+  body: 'Plus Jakarta Sans',
+};
+
+export const theme = extendTheme({ colors, fonts });
