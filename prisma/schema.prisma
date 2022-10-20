@@ -2,55 +2,55 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
-    previewFeatures = ["referentialIntegrity"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-    referentialIntegrity = "prisma"
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
 
 model board {
-    id        Int      @id @default(autoincrement())
-    title     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    task     task[]
-    status   status[]
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      task[]
+  status    status[]
 }
 
 model task {
-    id        Int      @id @default(autoincrement())
-    title     String 
-    description String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    boardId   Int
-    board     board    @relation(fields: [boardId], references: [id])
-    subtask   subtask[]
-    status    status[]
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  boardId     Int
+  board       board     @relation(fields: [boardId], references: [id])
+  subtask     subtask[]
+  status      status[]
 }
 
 model subtask {
-    id        Int      @id @default(autoincrement())
-    title     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    isDone    Boolean  @default(false)
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  isDone    Boolean  @default(false)
+  taskId    Int
+  task      task     @relation(fields: [taskId], references: [id])
 }
 
 model status {
-    id        Int      @id @default(autoincrement())
-    title     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-    taskId    Int
-    task      task     @relation(fields: [taskId], references: [id])
-    boardId   Int
-    board     board    @relation(fields: [boardId], references: [id])
+  id        Int      @id @default(autoincrement())
+  title     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  taskId    Int
+  task      task     @relation(fields: [taskId], references: [id])
+  boardId   Int
+  board     board    @relation(fields: [boardId], references: [id])
 }
