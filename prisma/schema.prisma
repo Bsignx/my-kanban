@@ -13,10 +13,44 @@ datasource db {
     referentialIntegrity = "prisma"
 }
 
-model task {
+model board {
     id        Int      @id @default(autoincrement())
     title     String
-    status    String  @default("TODO")
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    task     task[]
+    status   status[]
+}
+
+model task {
+    id        Int      @id @default(autoincrement())
+    title     String 
+    description String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    boardId   Int
+    board     board    @relation(fields: [boardId], references: [id])
+    subtask   subtask[]
+    status    status[]
+}
+
+model subtask {
+    id        Int      @id @default(autoincrement())
+    title     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    isDone    Boolean  @default(false)
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+}
+
+model status {
+    id        Int      @id @default(autoincrement())
+    title     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    taskId    Int
+    task      task     @relation(fields: [taskId], references: [id])
+    boardId   Int
+    board     board    @relation(fields: [boardId], references: [id])
 }

@@ -25,7 +25,6 @@ const Home: NextPage = () => {
         "sidemenu header" 100px
         "main main" 1fr
         / 300px 1fr
-      
       `
           : `
         "sidemenu header" 100px 
