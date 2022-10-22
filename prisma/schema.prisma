@@ -9,48 +9,46 @@ generator client {
 datasource db {
   provider             = "mysql"
   url                  = env("DATABASE_URL")
-  shadowDatabaseUrl    = env("SHADOW_DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
-model board {
+model Board {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  task      task[]
-  status    status[]
+  Status    Status[]
+  Task      Task[]
 }
 
-model task {
+model Task {
   id          Int       @id @default(autoincrement())
   title       String
   description String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   boardId     Int
-  board       board     @relation(fields: [boardId], references: [id])
-  subtask     subtask[]
-  status      status[]
+  Board       Board     @relation(fields: [boardId], references: [id])
+  Subtask     Subtask[]
+  Status      Status[]
 }
 
-model subtask {
+model Subtask {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   isDone    Boolean  @default(false)
   taskId    Int
-  task      task     @relation(fields: [taskId], references: [id])
+  Task      Task     @relation(fields: [taskId], references: [id])
 }
 
-model status {
+model Status {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  taskId    Int
-  task      task     @relation(fields: [taskId], references: [id])
   boardId   Int
-  board     board    @relation(fields: [boardId], references: [id])
+  Board     Board    @relation(fields: [boardId], references: [id])
+  Task      Task[]
 }
