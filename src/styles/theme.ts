@@ -19,4 +19,14 @@ const fonts = {
   body: 'Plus Jakarta Sans',
 };
 
-export const theme = extendTheme({ colors, fonts });
+const global = {
+  body: {
+    bg: 'light.200',
+  },
+};
+
+export const theme = extendTheme({
+  colors,
+  fonts,
+  global,
+});
