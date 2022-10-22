@@ -40,6 +40,7 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
         borderBottom={isHidden ? '1px solid' : 'none'}
         borderColor="light.300"
         bgColor="light.100"
+        height="100px"
       >
         <Logo />
       </Box>
