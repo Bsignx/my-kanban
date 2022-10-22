@@ -7,11 +7,11 @@ const load = async () => {
     await prisma.board.deleteMany();
     console.log('Deleted records in board table');
 
-    await prisma.task.deleteMany();
-    console.log('Deleted records in task table');
-
     await prisma.subtask.deleteMany();
     console.log('Deleted records in subtask table');
+
+    await prisma.task.deleteMany();
+    console.log('Deleted records in task table');
 
     await prisma.status.deleteMany();
     console.log('Deleted records in status table');
