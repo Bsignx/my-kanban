@@ -12,53 +12,55 @@ type Props = {
 
 export const SideMenu = ({ onClick, isHidden }: Props) => {
   return (
-    <>
-      {isHidden ? (
-        <>
-          <Box
-            p="9"
-            borderRight="1px solid"
-            borderBottom="1px solid"
-            borderColor="light.300"
-          >
-            <Logo />
-          </Box>
-          {isHidden && (
-            <Box
-              onClick={onClick}
-              as="button"
-              bgColor="primary"
-              h="48px"
-              w="56px"
-              position="absolute"
-              left="0"
-              top="70%"
-              borderRadius="0 50px 50px 0"
-            >
-              <ShowIcon
-                boxSize={6}
-                color="light.100"
-                _hover={{
-                  color: 'light.300',
-                }}
-              />
-            </Box>
-          )}
-        </>
-      ) : (
+    <Box as="aside" bgColor="transparent">
+      {isHidden && (
+        <Box
+          onClick={onClick}
+          as="button"
+          bgColor="primary"
+          h="48px"
+          w="56px"
+          position="absolute"
+          left="0"
+          top="70%"
+          borderRadius="0 50px 50px 0"
+        >
+          <ShowIcon
+            boxSize={6}
+            color="light.100"
+            _hover={{
+              color: 'light.300',
+            }}
+          />
+        </Box>
+      )}
+      <Box
+        p="9"
+        borderRight="1px solid"
+        borderBottom={isHidden ? '1px solid' : 'none'}
+        borderColor="light.300"
+        bgColor="light.100"
+      >
+        <Logo />
+      </Box>
+      <Box
+        aria-hidden={isHidden}
+        transform={isHidden ? 'translateX(-300px)' : 'translateX(0)'}
+        transition="transform 0.3s ease-in-out"
+        height="calc(100vh - 100px)"
+        bgColor="light.100"
+        borderRight="1px solid"
+        borderColor="light.300"
+        p="7"
+        pt="9"
+        pl="9"
+      >
         <Flex
-          as="aside"
+          display={isHidden ? 'none' : 'flex'}
           flexDirection="column"
-          p="7"
-          pt="9"
-          pl="9"
           justifyContent="space-between"
           height="100%"
-          borderRight="1px solid"
-          borderColor="light.300"
         >
-          <Logo />
-
           <BoardList
             containerProps={{
               mt: '12',
@@ -68,7 +70,7 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
 
           <SideMenuControls onClick={onClick} />
         </Flex>
-      )}
-    </>
+      </Box>
+    </Box>
   );
 };
