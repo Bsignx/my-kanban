@@ -5,9 +5,14 @@ type ButtonProps = {
   children: ReactNode;
   onClick: () => void;
   disabled?: boolean;
-};
+} & ChakraProps;
 
-export const Button = ({ onClick, children, disabled }: ButtonProps) => {
+export const Button = ({
+  onClick,
+  children,
+  disabled,
+  ...delegaded
+}: ButtonProps) => {
   return (
     <ChakraButton
       onClick={onClick}
@@ -23,6 +28,7 @@ export const Button = ({ onClick, children, disabled }: ButtonProps) => {
       _active={{
         bgColor: 'secondary',
       }}
+      {...delegaded}
     >
       {children}
     </ChakraButton>
