@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { Header } from '../components/header';
 import { SideMenu } from '../components/side-menu';
 import { Kanban } from '../components/kanban';
-import { Logo } from '../components/shared/svgs/logo';
 import { trpc } from '../utils/trpc';
+import { KanbanContextProvider } from '../contexts/kanban-context';
 
 const Home: NextPage = () => {
-  // const { data } = trpc.example.hello.useQuery({ text: 'from test' });
-  // const { data } = trpc.kanban.getBoards.useQuery();
+  const { data: boardsData } = trpc.kanban.getBoards.useQuery();
+
   // console.log(data);
   // const { data: taskData } = trpc.kanban.getTasks.useQuery();
   // console.log(taskData);
@@ -29,32 +29,34 @@ const Home: NextPage = () => {
   // }, []);
 
   return (
-    <Grid
-      gridTemplate={
-        isHidden
-          ? `
+    <KanbanContextProvider boards={boardsData}>
+      <Grid
+        gridTemplate={
+          isHidden
+            ? `
         "sidemenu header" 100px
         "main main" 1fr
         / 300px 1fr
       `
-          : `
+            : `
         "sidemenu header" 100px 
         "sidemenu main"  1fr
         / 300px 1fr
       `
-      }
-      h="100vh"
-    >
-      <GridItem gridArea="header">
-        <Header />
-      </GridItem>
-      <GridItem gridArea="sidemenu" bgColor={sideMenuBgColor}>
-        <SideMenu onClick={handleHide} isHidden={isHidden} />
-      </GridItem>
-      <GridItem gridArea="main">
-        <Kanban />
-      </GridItem>
-    </Grid>
+        }
+        h="100vh"
+      >
+        <GridItem gridArea="header">
+          <Header />
+        </GridItem>
+        <GridItem gridArea="sidemenu" bgColor={sideMenuBgColor}>
+          <SideMenu onClick={handleHide} isHidden={isHidden} />
+        </GridItem>
+        <GridItem gridArea="main">
+          <Kanban />
+        </GridItem>
+      </Grid>
+    </KanbanContextProvider>
   );
 };
 
