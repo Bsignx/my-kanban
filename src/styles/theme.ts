@@ -1,4 +1,9 @@
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme, ThemeConfig } from '@chakra-ui/react';
+
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
+};
 
 const colors = {
   primary: '#635FC7',
@@ -12,6 +17,13 @@ const colors = {
   },
   light: { 100: '#FFFFFF', 200: '#F4F7FD', 300: '#E4EBFA' },
   alert: { 100: '#FF9898', 200: '#EA5555' },
+  switchScheme: {
+    100: '#A8A4FF',
+    200: '#A8A4FF',
+    300: '#A8A4FF',
+    400: '#A8A4FF',
+    500: '#A8A4FF',
+  },
 };
 
 const fonts = {
@@ -26,6 +38,7 @@ const global = {
 };
 
 export const theme = extendTheme({
+  config,
   colors,
   fonts,
   global,

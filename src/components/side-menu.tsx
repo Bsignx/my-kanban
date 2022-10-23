@@ -1,9 +1,11 @@
-import { Flex, Box } from '@chakra-ui/react';
+import { Flex, Box, useColorModeValue, useColorMode } from '@chakra-ui/react';
 
 import { BoardList } from './board-list';
+import { SideMenuControls } from './side-menu-controls';
+import { ThemeSwitcher } from './theme-switcher';
+
 import { Logo } from './shared/svgs/logo';
 import { Show as ShowIcon } from './shared/svgs/show';
-import { SideMenuControls } from './side-menu-controls';
 
 type Props = {
   onClick: () => void;
@@ -11,8 +13,14 @@ type Props = {
 };
 
 export const SideMenu = ({ onClick, isHidden }: Props) => {
+  const { colorMode } = useColorMode();
+
+  const sideMenuBgColor = useColorModeValue('light.100', 'dark.100');
+  const sideMenuBorderColor = useColorModeValue('light.300', 'dark.50');
+  const themeSwitcherBgColor = useColorModeValue('light.300', 'dark.300');
+
   return (
-    <Box as="aside" bgColor="transparent">
+    <Box as="aside">
       {isHidden && (
         <Box
           onClick={onClick}
@@ -38,23 +46,23 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
         p="9"
         borderRight="1px solid"
         borderBottom={isHidden ? '1px solid' : 'none'}
-        borderColor="light.300"
-        bgColor="light.100"
+        borderColor={sideMenuBorderColor}
+        bgColor={sideMenuBgColor}
         height="100px"
       >
-        <Logo />
+        <Logo theme={colorMode} />
       </Box>
       <Box
         aria-hidden={isHidden}
         transform={isHidden ? 'translateX(-300px)' : 'translateX(0)'}
         transition="transform 0.3s ease-in-out"
         height="calc(100vh - 100px)"
-        bgColor="light.100"
+        bgColor={sideMenuBgColor}
         borderRight="1px solid"
-        borderColor="light.300"
+        borderColor={sideMenuBorderColor}
         p="7"
-        pt="9"
         pl="9"
+        pt="2"
       >
         <Flex
           display={isHidden ? 'none' : 'flex'}
@@ -62,14 +70,20 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
           justifyContent="space-between"
           height="100%"
         >
-          <BoardList
-            containerProps={{
-              mt: '12',
-              flex: '1',
-            }}
-          />
+          <BoardList />
+          <Box>
+            <Flex
+              justifyContent="center"
+              bgColor={themeSwitcherBgColor}
+              h="48px"
+              borderRadius="6px"
+              mb="6"
+            >
+              <ThemeSwitcher />
+            </Flex>
 
-          <SideMenuControls onClick={onClick} />
+            <SideMenuControls onClick={onClick} />
+          </Box>
         </Flex>
       </Box>
     </Box>

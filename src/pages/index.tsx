@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { Box, Grid, GridItem } from '@chakra-ui/react';
+import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { Header } from '../components/header';
@@ -17,6 +17,9 @@ const Home: NextPage = () => {
   // const { mutate } = trpc.kanban.createBoard.useMutation();
 
   const [isHidden, setIsHidden] = useState(false);
+
+  const kanbanBgColor = useColorModeValue('light.200', 'dark.300');
+  const sideMenuBgColor = useColorModeValue('light.200', 'dark.300');
 
   const handleHide = () => {
     setIsHidden(!isHidden);
@@ -46,10 +49,10 @@ const Home: NextPage = () => {
       <GridItem gridArea="header">
         <Header />
       </GridItem>
-      <GridItem gridArea="sidemenu" bgColor="light.200">
+      <GridItem gridArea="sidemenu" bgColor={sideMenuBgColor}>
         <SideMenu onClick={handleHide} isHidden={isHidden} />
       </GridItem>
-      <GridItem w="100%" h="100%" bg="light.200" gridArea="main">
+      <GridItem w="100%" h="100%" bg={kanbanBgColor} gridArea="main">
         <Kanban />
       </GridItem>
     </Grid>
