@@ -21,7 +21,7 @@ const VoidKanban = () => {
         This board is empty. Create a new column to get started.
       </Text>
 
-      <Button onClick={() => alert('clicked')} maxW="140px">
+      <Button onClick={() => alert('clicked')} maxW="160px">
         + Add New Column
       </Button>
     </Flex>
