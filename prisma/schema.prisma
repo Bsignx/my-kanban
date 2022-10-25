@@ -30,7 +30,7 @@ model Task {
   boardId     Int
   Board       Board     @relation(fields: [boardId], references: [id])
   Subtask     Subtask[]
-  Status      Status[]
+  status      String
 }
 
 model Subtask {
@@ -50,5 +50,4 @@ model Status {
   updatedAt DateTime @updatedAt
   boardId   Int
   Board     Board    @relation(fields: [boardId], references: [id])
-  Task      Task[]
 }

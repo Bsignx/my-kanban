@@ -16,26 +16,31 @@ const tasks = [
         title: 'Task 1',
         description: 'Task 1 description',
         boardId: 1,
+        status: 'Done',
     },
     {
         title: 'Task 2',
         description: 'Task 2 description',
         boardId: 1,
+        status: 'Done',
     },
     {
         title: 'Task 3',
         description: 'Task 3 description',
         boardId: 2,
+        status: 'In Progress',
     },
     {
         title: 'Task 4',
         description: 'Task 4 description',
         boardId: 2,
+        status: 'To Do',
     },
     {
         title: 'Task 5',
         description: 'Task 5 description',
         boardId: 3,
+        status: 'To Do',
     }
 ]
 
