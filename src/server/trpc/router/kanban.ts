@@ -17,7 +17,7 @@ export const kanbanRouter = router({
   getTasks: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.task.findMany();
   }),
-  getTaskByBoardId: publicProcedure
+  getTasksByBoardId: publicProcedure
     .input(z.object({ boardId: z.number() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.task.findMany({
