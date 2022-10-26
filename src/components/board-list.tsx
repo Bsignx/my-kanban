@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { ChakraProps, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { ChakraProps, Flex, VStack } from '@chakra-ui/react';
 
 import { useKanban } from '../contexts/kanban-context';
-import { Board as BoardIcon } from './shared/svgs/board';
+import { Text } from './shared/text';
 import { Board } from '../types/domain';
+import { Board as BoardIcon } from './shared/svgs/board';
 
 type Props = {
   containerProps?: ChakraProps;
@@ -26,16 +27,10 @@ export const BoardList = ({ containerProps }: Props) => {
 
   return (
     <Flex {...containerProps} flexDir="column">
-      <Heading
-        textTransform="uppercase"
-        fontWeight="700"
-        fontSize="md"
-        letterSpacing="2.4px"
-        color="dark.10"
-      >
+      <Text variant="h2" textTransform="uppercase" color="dark.10">
         all boards (1)
-      </Heading>
-      <VStack alignItems="start" pt="7" spacing="6">
+      </Text>
+      <VStack alignItems="start" pt="8" spacing="6">
         {boards?.slice(0, 3).map((board) => (
           <BoardItem
             key={board.id}
@@ -82,7 +77,7 @@ const BoardItem = ({
     }}
   >
     <BoardIcon color="inherit" />
-    <Text fontWeight="700" fontSize="md" color="inherit" ml="4">
+    <Text variant="p" fontWeight="700" color="inherit" ml="4">
       {name}
     </Text>
   </Flex>

@@ -1,6 +1,7 @@
-import { HStack, Text } from '@chakra-ui/react';
+import { HStack } from '@chakra-ui/react';
 
 import { Hide as HideIcon } from './shared/svgs/hide';
+import { Text } from './shared/text';
 
 type Props = {
   onClick: () => void;
@@ -18,7 +19,7 @@ export const SideMenuControls = ({ onClick }: Props) => {
       aria-label="Hide side menu"
     >
       <HideIcon />
-      <Text fontWeight="700" fontSize="md" color="inherit" ml="5">
+      <Text fontWeight="700" color="inherit" ml="5">
         Hide Sidebar
       </Text>
     </HStack>

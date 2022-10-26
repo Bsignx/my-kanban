@@ -1,6 +1,7 @@
 import { Heading, Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
 import { Button } from './shared/button';
+import { Text } from './shared/text';
 
 export const Header = () => {
   const headingColor = useColorModeValue('dark.200', 'light.100');
@@ -18,9 +19,9 @@ export const Header = () => {
       borderColor={headerBorderColor}
     >
       <Flex alignItems="center" justifyContent="space-between" h="100%">
-        <Heading fontWeight="700" color={headingColor} fontSize="3xl">
+        <Text variant="h1" color={headingColor}>
           Platform Launch
-        </Heading>
+        </Text>
         <Button onClick={() => alert('clicked')} disabled>
           + Add New Task
         </Button>
