@@ -1,16 +1,29 @@
+import { useEffect, useState } from 'react';
 import { ChakraProps, Flex, Heading, Text, VStack } from '@chakra-ui/react';
+
+import { useKanban } from '../contexts/kanban-context';
 import { Board as BoardIcon } from './shared/svgs/board';
+import { Board } from '../types/domain';
 
 type Props = {
   containerProps?: ChakraProps;
 };
 
-const boardList = [
-  { id: 1, name: 'Platform Launch', active: true },
-  { id: 2, name: 'Marketing Plan', active: false },
-];
-
 export const BoardList = ({ containerProps }: Props) => {
+  const { boards, updateActiveBoard, activeBoard } = useKanban();
+
+  const handleBoardClick = (board: Board) => {
+    updateActiveBoard(board);
+  };
+
+  useEffect(() => {
+    const firstBoard = boards?.[0];
+
+    if (firstBoard) {
+      updateActiveBoard(firstBoard);
+    }
+  }, [boards?.length]);
+
   return (
     <Flex {...containerProps} flexDir="column">
       <Heading
@@ -23,8 +36,13 @@ export const BoardList = ({ containerProps }: Props) => {
         all boards (1)
       </Heading>
       <VStack alignItems="start" pt="7" spacing="6">
-        {boardList.map(({ name, active, id }) => (
-          <BoardItem key={id} name={name} active={active} />
+        {boards?.slice(0, 3).map((board) => (
+          <BoardItem
+            key={board.id}
+            name={board.title}
+            active={activeBoard?.id === board.id}
+            onClick={() => handleBoardClick(board)}
+          />
         ))}
         <BoardItem name="+ Create New Board" isNewBoard />
       </VStack>

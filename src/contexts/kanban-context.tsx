@@ -1,25 +1,69 @@
-import { createContext, PropsWithChildren, useContext } from 'react';
+import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-import { Board } from '../types/domain';
+import { Board, Task } from '../types/domain';
+import { trpc } from '../utils/trpc';
 
 type KanbanContextType = {
   boards?: Board[];
+  activeBoard: Board | null;
+  updateActiveBoard: (board: Board) => void;
+  tasksByStatus: Record<string, Task[]>;
 };
 
 export const KanbanContext = createContext<KanbanContextType>(
   {} as KanbanContextType
 );
 
-type KanbanContextProviderProps = PropsWithChildren<{
-  boards?: Board[];
-}>;
+type KanbanContextProviderProps = PropsWithChildren;
 
 export const KanbanContextProvider = ({
   children,
-  boards,
 }: KanbanContextProviderProps) => {
+  const { data: boardsData } = trpc.kanban.getBoards.useQuery();
+
+  const [activeBoard, setActiveBoard] = useState<Board | null>(null);
+
+  const isValidBoard = activeBoard?.id !== null;
+
+  const commonQueryParams = {
+    boardId: activeBoard?.id ?? 0,
+  };
+
+  const commonQueryOptions = {
+    enabled: isValidBoard,
+  };
+
+  const { data: tasksByBoardIdData = [] } =
+    trpc.kanban.getTasksByBoardId.useQuery(
+      commonQueryParams,
+      commonQueryOptions
+    );
+
+  const { data: statusesByBoardIdData = [] } =
+    trpc.kanban.getStatusesByBoardId.useQuery(
+      commonQueryParams,
+      commonQueryOptions
+    );
+
+  const tasksByStatus = statusesByBoardIdData.reduce(
+    (acc, status) => ({
+      ...acc,
+      [status.title]: tasksByBoardIdData.filter(
+        (task) => task.status === status.title
+      ),
+    }),
+    {}
+  );
+
   return (
-    <KanbanContext.Provider value={{ boards }}>
+    <KanbanContext.Provider
+      value={{
+        boards: boardsData,
+        activeBoard,
+        tasksByStatus,
+        updateActiveBoard: setActiveBoard,
+      }}
+    >
       {children}
     </KanbanContext.Provider>
   );
