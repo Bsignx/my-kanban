@@ -20,6 +20,7 @@ const Home: NextPage = () => {
   const [isHidden, setIsHidden] = useState(false);
 
   const sideMenuBgColor = useColorModeValue('light.200', 'dark.300');
+  const mainBgColor = useColorModeValue('light.200', 'dark.300');
 
   const handleHide = () => {
     setIsHidden(!isHidden);
@@ -49,7 +50,7 @@ const Home: NextPage = () => {
         <GridItem gridArea="sidemenu" bgColor={sideMenuBgColor}>
           <SideMenu onClick={handleHide} isHidden={isHidden} />
         </GridItem>
-        <GridItem gridArea="main">
+        <GridItem gridArea="main" bgColor={mainBgColor}>
           <Kanban />
         </GridItem>
       </Grid>
