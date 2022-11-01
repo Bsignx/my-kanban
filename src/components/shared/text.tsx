@@ -1,4 +1,4 @@
-import { ChakraProps, Text as ChakraText } from '@chakra-ui/react';
+import { ChakraProps, Text as ChakraText, TextProps } from '@chakra-ui/react';
 import React, { PropsWithChildren } from 'react';
 
 const variantsStyles = {
@@ -27,7 +27,7 @@ const variantsStyles = {
 type Props = PropsWithChildren<
   {
     variant?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
-  } & ChakraProps
+  } & Omit<TextProps, 'variant'>
 >;
 
 export const Text = ({ variant = 'p', children, ...delegated }: Props) => {
