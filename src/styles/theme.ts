@@ -15,6 +15,9 @@ const colors = {
     200: '#000112',
     300: '#20212C',
   },
+  border: {
+    1: 'rgba(130, 143, 163, 0.25)',
+  },
   light: { 100: '#FFFFFF', 200: '#F4F7FD', 300: '#E4EBFA' },
   alert: { 100: '#FF9898', 200: '#EA5555' },
   switchScheme: {
