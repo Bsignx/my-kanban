@@ -9,14 +9,6 @@ import { trpc } from '../utils/trpc';
 import { KanbanContextProvider } from '../contexts/kanban-context';
 
 const Home: NextPage = () => {
-  // console.log(data);
-  // const { data: taskData } = trpc.kanban.getTasks.useQuery();
-  // console.log(taskData);
-  // const { mutate } = trpc.kanban.createBoard.useMutation();
-  // useEffect(() => {
-  //   mutate({ title: 'bruno' });
-  // }, []);
-
   const [isHidden, setIsHidden] = useState(false);
 
   const sideMenuBgColor = useColorModeValue('light.200', 'dark.300');

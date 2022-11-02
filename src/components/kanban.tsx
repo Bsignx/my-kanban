@@ -7,7 +7,7 @@ import { VoidBoard } from './void-board';
 
 export const Kanban = () => {
   const { tasksByStatus } = useKanban();
-  console.log(tasksByStatus);
+
   const isFilled = Object.keys(tasksByStatus).length > 0;
 
   return (
