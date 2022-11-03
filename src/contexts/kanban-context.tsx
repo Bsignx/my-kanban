@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 
-import { Board, Task } from '../types/domain';
+import { Board, Status, Task } from '../types/domain';
 import { trpc } from '../utils/trpc';
 
 type KanbanContextType = {
@@ -8,6 +8,7 @@ type KanbanContextType = {
   activeBoard: Board | null;
   updateActiveBoard: (board: Board) => void;
   tasksByStatus: Record<string, Task[]>;
+  statusesByBoardIdData: Status[];
 };
 
 export const KanbanContext = createContext<KanbanContextType>(
@@ -62,6 +63,7 @@ export const KanbanContextProvider = ({
         activeBoard,
         tasksByStatus,
         updateActiveBoard: setActiveBoard,
+        statusesByBoardIdData,
       }}
     >
       {children}
