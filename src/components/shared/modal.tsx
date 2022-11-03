@@ -23,13 +23,15 @@ export const Modal = ({ children, isOpen, onClose, title }: Props) => (
       <ModalOverlay />
       <ModalContent>
         {!!title && (
-          <ModalHeader>
+          <ModalHeader bg="dark.100" borderRadius="md">
             <Text variant="h3">{title}</Text>
           </ModalHeader>
         )}
 
         <ModalCloseButton />
-        <ModalBody>{children}</ModalBody>
+        <ModalBody bg="dark.100" borderRadius="md">
+          {children}
+        </ModalBody>
       </ModalContent>
     </ChakraModal>
   </>
