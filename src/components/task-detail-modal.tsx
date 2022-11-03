@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useKanban } from '../contexts/kanban-context';
 
@@ -26,6 +26,9 @@ export const TaskDetailModal = ({
   checkedItems,
   subtasksProgressMessage,
 }: Props) => {
+  const subtasksProgressColor = useColorModeValue('dark.10', 'light.100');
+  const checkboxBgColor = useColorModeValue('light.200', 'dark.300');
+
   const { invalidate } = trpc.useContext();
 
   const { statusesByBoardIdData } = useKanban();
@@ -83,16 +86,16 @@ export const TaskDetailModal = ({
       </Text>
       <Text
         variant="p"
-        fontSize="sm"
+        fontSize="small"
         mt="5"
         mb="4"
-        color="light.100"
+        color={subtasksProgressColor}
         fontWeight="700"
       >
         {subtasksProgressMessage}
       </Text>
       {subtasks?.map((subtask, index) => (
-        <Box bgColor="dark.300" mb="2" p="2" borderRadius="sm">
+        <Box bgColor={checkboxBgColor} mb="2" p="2" borderRadius="sm">
           <Checkbox
             key={subtask.id}
             _checked={{

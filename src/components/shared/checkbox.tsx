@@ -8,14 +8,14 @@ export const Checkbox = ({ children, ...delegated }: Props) => {
     <ChakraCheckbox
       iconColor="light.100"
       colorScheme="checkbox"
-      fontSize="sm"
+      fontSize="small"
       display="flex"
       alignItems="center"
       spacing="3"
       css={{
         '.chakra-checkbox__label': {
-          fontSize: 'var(--chakra-fontSizes-sm)',
-          fontWeight: 'var(--chakra-fontWeights-medium)',
+          fontSize: 'var(--chakra-fontSizes-small)',
+          fontWeight: 'var(--chakra-fontWeights-semibold)',
         },
       }}
       {...delegated}

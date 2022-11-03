@@ -1,11 +1,11 @@
 import {
   ModalBody,
   ModalContent,
-  ModalFooter,
   ModalOverlay,
   Modal as ChakraModal,
   ModalHeader,
   ModalCloseButton,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
@@ -17,22 +17,26 @@ type Props = PropsWithChildren<{
   title?: string;
 }>;
 
-export const Modal = ({ children, isOpen, onClose, title }: Props) => (
-  <>
-    <ChakraModal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        {!!title && (
-          <ModalHeader bg="dark.100" borderRadius="md">
-            <Text variant="h3">{title}</Text>
-          </ModalHeader>
-        )}
+export const Modal = ({ children, isOpen, onClose, title }: Props) => {
+  const modalBgColor = useColorModeValue('light.100', 'dark.100');
 
-        <ModalCloseButton />
-        <ModalBody bg="dark.100" borderRadius="md">
-          {children}
-        </ModalBody>
-      </ModalContent>
-    </ChakraModal>
-  </>
-);
+  return (
+    <>
+      <ChakraModal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          {!!title && (
+            <ModalHeader bg={modalBgColor} borderRadius="md">
+              <Text variant="h3">{title}</Text>
+            </ModalHeader>
+          )}
+
+          <ModalCloseButton />
+          <ModalBody bg={modalBgColor} borderRadius="md">
+            {children}
+          </ModalBody>
+        </ModalContent>
+      </ChakraModal>
+    </>
+  );
+};

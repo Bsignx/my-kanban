@@ -1,13 +1,14 @@
 import {
   Button as ChakraButton,
   ButtonProps as ChakraButtonProps,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
-const variantsStyles = {
+const variantsStyles = (bgColor: string) => ({
   primary: {
     color: 'light.100',
-    bgColor: 'primary',
+    bgColor: bgColor,
     _hover: {
       bgColor: 'secondary',
     },
@@ -17,7 +18,7 @@ const variantsStyles = {
   },
   secondary: {
     color: 'primary',
-    bgColor: 'light.100',
+    bgColor: bgColor,
     _hover: {
       bgColor: 'secondary',
       color: 'light.100',
@@ -26,7 +27,7 @@ const variantsStyles = {
       bgColor: 'secondary',
     },
   },
-};
+});
 
 type ButtonProps = {
   children: ReactNode;
@@ -42,6 +43,10 @@ export const Button = ({
   variant = 'primary',
   ...delegaded
 }: ButtonProps) => {
+  const primaryBgColor = 'primary';
+  const secondaryBgColor = useColorModeValue('light.200', 'light.100');
+  const bgColor = variant === 'primary' ? primaryBgColor : secondaryBgColor;
+
   return (
     <ChakraButton
       onClick={onClick}
@@ -49,7 +54,7 @@ export const Button = ({
       fontWeight="700"
       fontSize="sm"
       borderRadius="24px"
-      {...variantsStyles[variant]}
+      {...variantsStyles(bgColor)[variant]}
       {...delegaded}
     >
       {children}

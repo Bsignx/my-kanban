@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
 import { FormEvent, useState } from 'react';
 
 import { trpc } from '../utils/trpc';
@@ -20,6 +20,8 @@ export const NewBoardModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  const labelColor = useColorModeValue('dark.10', 'light.100');
+
   const utils = trpc.useContext();
 
   const { mutateAsync: createBoard } = trpc.kanban.createBoard.useMutation();
@@ -103,7 +105,13 @@ export const NewBoardModal = ({
           placeholder="e.g. Web Design"
         />
 
-        <Text fontSize="sm" fontWeight="700" mt="6" mb="2">
+        <Text
+          fontSize="small"
+          fontWeight="700"
+          mt="6"
+          mb="2"
+          color={labelColor}
+        >
           Board Columns
         </Text>
         {boardForm?.columns?.map((column, index) => (
