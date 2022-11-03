@@ -25,8 +25,6 @@ export const BoardColumn = ({
   boardTitle: string;
   tasks: Task[];
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Box>
@@ -50,19 +48,11 @@ export const BoardColumn = ({
           {boardTitle} ({tasks.length})
         </Text>
         <VStack alignItems="start" w="280px" spacing="5">
-          {tasks.map(({ id, description, title }) => (
-            <BoardColumnTask
-              key={id}
-              title={title}
-              description={description}
-              onClick={onOpen}
-            />
+          {tasks.map((task) => (
+            <BoardColumnTask key={task.id} task={task} />
           ))}
         </VStack>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        test
-      </Modal>
     </>
   );
 };
