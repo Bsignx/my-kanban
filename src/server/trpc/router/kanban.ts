@@ -42,9 +42,35 @@ export const kanbanRouter = router({
         },
       });
     }),
+  updateTaskStatus: publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        status: z.string(),
+      })
+    )
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.task.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          status: input.status,
+        },
+      });
+    }),
   getSubtasks: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.subtask.findMany();
   }),
+  getSubtasksByTaskId: publicProcedure
+    .input(z.object({ taskId: z.number() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.subtask.findMany({
+        where: {
+          taskId: input.taskId,
+        },
+      });
+    }),
   createSubtask: publicProcedure
     .input(z.object({ title: z.string(), taskId: z.number() }))
     .mutation(({ ctx, input }) => {
@@ -52,6 +78,18 @@ export const kanbanRouter = router({
         data: {
           ...input,
           isDone: false,
+        },
+      });
+    }),
+  updateSubtask: publicProcedure
+    .input(z.object({ id: z.number(), isDone: z.boolean() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.subtask.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          isDone: input.isDone,
         },
       });
     }),
