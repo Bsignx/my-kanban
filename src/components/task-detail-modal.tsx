@@ -8,6 +8,7 @@ import { Checkbox } from './shared/checkbox';
 import { Modal } from './shared/modal';
 import { Select } from './shared/select';
 import { Text } from './shared/text';
+import { SubtasksSelector } from './subtasks-selector';
 
 type Props = {
   isOpen: boolean;
@@ -26,9 +27,6 @@ export const TaskDetailModal = ({
   checkedItems,
   subtasksProgressMessage,
 }: Props) => {
-  const subtasksProgressColor = useColorModeValue('dark.10', 'light.100');
-  const checkboxBgColor = useColorModeValue('light.200', 'dark.300');
-
   const { invalidate } = trpc.useContext();
 
   const { statusesByBoardIdData } = useKanban();
@@ -84,38 +82,12 @@ export const TaskDetailModal = ({
       <Text variant="p" fontSize="sm" color="dark.10" fontWeight="500">
         {task.description}
       </Text>
-      <Text
-        variant="p"
-        fontSize="small"
-        mt="5"
-        mb="4"
-        color={subtasksProgressColor}
-        fontWeight="700"
-      >
-        {subtasksProgressMessage}
-      </Text>
-      {subtasks?.map((subtask, index) => (
-        <Box bgColor={checkboxBgColor} mb="2" p="2" borderRadius="sm">
-          <Checkbox
-            key={subtask.id}
-            _checked={{
-              color: 'dark.10',
-              textDecoration: 'line-through',
-            }}
-            isChecked={
-              checkedItems[index] !== undefined ? checkedItems[index] : false
-            }
-            onChange={(e) =>
-              handleSubtaskChange({
-                isDone: e.target.checked,
-                subtaskId: subtask.id,
-              })
-            }
-          >
-            {subtask.title}
-          </Checkbox>
-        </Box>
-      ))}
+      <SubtasksSelector
+        title={subtasksProgressMessage}
+        subtasks={subtasks}
+        handleSubtaskChange={handleSubtaskChange}
+        checkedItems={checkedItems}
+      />
       <Select
         label="Current Status"
         mb="4"
