@@ -10,7 +10,7 @@ type Props = {
   task: Task;
 };
 
-export const BoardColumnTask = ({ task }: Props) => {
+export const BoardTask = ({ task }: Props) => {
   const taskBgColor = useColorModeValue('light.100', 'dark.100');
   const taskTitleColor = useColorModeValue('dark.200', 'light.100');
 

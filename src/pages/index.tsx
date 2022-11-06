@@ -1,11 +1,10 @@
 import type { NextPage } from 'next';
 import { Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Header } from '../components/header';
 import { SideMenu } from '../components/side-menu';
-import { Kanban } from '../components/kanban';
-import { trpc } from '../utils/trpc';
+import { Board } from '../components/board';
 import { KanbanContextProvider } from '../contexts/kanban-context';
 
 const Home: NextPage = () => {
@@ -43,7 +42,7 @@ const Home: NextPage = () => {
           <SideMenu onClick={handleHide} isHidden={isHidden} />
         </GridItem>
         <GridItem gridArea="main" bgColor={mainBgColor}>
-          <Kanban />
+          <Board />
         </GridItem>
       </Grid>
     </KanbanContextProvider>

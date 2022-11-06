@@ -6,7 +6,7 @@ import { Button } from './shared/button';
 import { Modal } from './shared/modal';
 import { TextField } from './shared/text-field';
 
-import { Close as CloseIcon } from './shared/svgs/close';
+import { Close as CloseIcon } from './shared/icons/close';
 
 const initialBoardState = {
   title: '',

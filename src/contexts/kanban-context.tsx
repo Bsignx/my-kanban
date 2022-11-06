@@ -9,6 +9,7 @@ type KanbanContextType = {
   updateActiveBoard: (board: Board) => void;
   tasksByStatus: Record<string, Task[]>;
   statusesByBoardIdData: Status[];
+  isLoadingStatusesByBoardIdData: boolean;
 };
 
 export const KanbanContext = createContext<KanbanContextType>(
@@ -40,11 +41,13 @@ export const KanbanContextProvider = ({
       commonQueryOptions
     );
 
-  const { data: statusesByBoardIdData = [] } =
-    trpc.kanban.getStatusesByBoardId.useQuery(
-      commonQueryParams,
-      commonQueryOptions
-    );
+  const {
+    data: statusesByBoardIdData = [],
+    isLoading: isLoadingStatusesByBoardIdData,
+  } = trpc.kanban.getStatusesByBoardId.useQuery(
+    commonQueryParams,
+    commonQueryOptions
+  );
 
   const tasksByStatus = statusesByBoardIdData.reduce(
     (acc, status) => ({
@@ -64,6 +67,7 @@ export const KanbanContextProvider = ({
         tasksByStatus,
         updateActiveBoard: setActiveBoard,
         statusesByBoardIdData,
+        isLoadingStatusesByBoardIdData,
       }}
     >
       {children}

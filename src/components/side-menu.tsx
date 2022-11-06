@@ -1,11 +1,10 @@
 import { Flex, Box, useColorModeValue, useColorMode } from '@chakra-ui/react';
 
-import { BoardList } from './board-list';
+import { SideMenuList } from './side-menu-list';
 import { SideMenuControls } from './side-menu-controls';
-import { ThemeSwitcher } from './theme-switcher';
 
-import { Logo } from './shared/svgs/logo';
-import { Show as ShowIcon } from './shared/svgs/show';
+import { Logo } from './shared/icons/logo';
+import { ShowSideMenuButton } from './show-side-menu-button';
 
 type Props = {
   onClick: () => void;
@@ -17,31 +16,10 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
 
   const sideMenuBgColor = useColorModeValue('light.100', 'dark.100');
   const sideMenuBorderColor = useColorModeValue('light.300', 'dark.50');
-  const themeSwitcherBgColor = useColorModeValue('light.300', 'dark.300');
 
   return (
     <Box as="aside">
-      {isHidden && (
-        <Box
-          onClick={onClick}
-          as="button"
-          bgColor="primary"
-          h="48px"
-          w="56px"
-          position="absolute"
-          left="0"
-          top="70%"
-          borderRadius="0 50px 50px 0"
-        >
-          <ShowIcon
-            boxSize={6}
-            color="light.100"
-            _hover={{
-              color: 'light.300',
-            }}
-          />
-        </Box>
-      )}
+      {isHidden && <ShowSideMenuButton onClick={onClick} />}
       <Box
         p="9"
         borderRight="1px solid"
@@ -70,20 +48,9 @@ export const SideMenu = ({ onClick, isHidden }: Props) => {
           justifyContent="space-between"
           height="100%"
         >
-          <BoardList />
-          <Box>
-            <Flex
-              justifyContent="center"
-              bgColor={themeSwitcherBgColor}
-              h="48px"
-              borderRadius="6px"
-              mb="6"
-            >
-              <ThemeSwitcher />
-            </Flex>
+          <SideMenuList />
 
-            <SideMenuControls onClick={onClick} />
-          </Box>
+          <SideMenuControls onClick={onClick} />
         </Flex>
       </Box>
     </Box>

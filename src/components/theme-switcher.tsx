@@ -1,5 +1,5 @@
 import { Flex, Switch, useColorMode } from '@chakra-ui/react';
-import { Dark as DarkIcon, Light as LightIcon } from './shared/svgs/theme';
+import { Dark as DarkIcon, Light as LightIcon } from './shared/icons/theme';
 
 export const ThemeSwitcher = () => {
   const { colorMode, toggleColorMode } = useColorMode();

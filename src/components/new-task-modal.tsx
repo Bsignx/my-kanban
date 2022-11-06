@@ -7,7 +7,7 @@ import { Modal } from './shared/modal';
 import { Select } from './shared/select';
 import { TextField } from './shared/text-field';
 
-import { Close as CloseIcon } from './shared/svgs/close';
+import { Close as CloseIcon } from './shared/icons/close';
 import { trpc } from '../utils/trpc';
 
 type TaskState = {

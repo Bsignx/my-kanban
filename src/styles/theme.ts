@@ -5,7 +5,7 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-const colors = {
+export const colors = {
   primary: '#635FC7',
   secondary: '#A8A4FF',
   dark: {

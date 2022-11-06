@@ -4,14 +4,14 @@ import { ChakraProps, Flex, useDisclosure, VStack } from '@chakra-ui/react';
 import { useKanban } from '../contexts/kanban-context';
 import { Board } from '../types/domain';
 import { Text } from './shared/text';
-import { BoardListItem } from './board-list-item';
+import { SideMenuListItem } from './side-menu-list-item';
 import { NewBoardModal } from './new-board-modal';
 
 type Props = {
   containerProps?: ChakraProps;
 };
 
-export const BoardList = ({ containerProps }: Props) => {
+export const SideMenuList = ({ containerProps }: Props) => {
   const { boards, updateActiveBoard, activeBoard } = useKanban();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -35,14 +35,14 @@ export const BoardList = ({ containerProps }: Props) => {
         </Text>
         <VStack alignItems="start" pt="8" spacing="6">
           {boards?.map((board) => (
-            <BoardListItem
+            <SideMenuListItem
               key={board.id}
               name={board.title}
               active={activeBoard?.id === board.id}
               onClick={() => handleBoardClick(board)}
             />
           ))}
-          <BoardListItem
+          <SideMenuListItem
             name="+ Create New Board"
             isNewBoard
             onClick={onOpen}

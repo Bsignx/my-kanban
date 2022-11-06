@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 
 import { Text } from './shared/text';
 
-import { Board as BoardIcon } from './shared/svgs/board';
+import { Board as BoardIcon } from './shared/icons/board';
 
 type Props = {
   name: string;
@@ -11,7 +11,12 @@ type Props = {
   onClick?: () => void;
 };
 
-export const BoardListItem = ({ name, active, isNewBoard, onClick }: Props) => (
+export const SideMenuListItem = ({
+  name,
+  active,
+  isNewBoard,
+  onClick,
+}: Props) => (
   <Flex
     onClick={onClick}
     as="button"
