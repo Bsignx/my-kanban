@@ -13,19 +13,18 @@ const initialBoardState = {
   columns: ['To Do', 'In Progress', 'Done'],
 };
 
-export const NewBoardModal = ({
-  isOpen,
-  onClose,
-}: {
+type Props = {
   isOpen: boolean;
   onClose: () => void;
-}) => {
+};
+
+export const NewBoardModal = ({ isOpen, onClose }: Props) => {
   const labelColor = useColorModeValue('dark.10', 'light.100');
 
   const utils = trpc.useContext();
 
   const { mutateAsync: createBoard } = trpc.kanban.createBoard.useMutation();
-  const { mutate: createStatuses } = trpc.kanban.createStatuses.useMutation();
+  const { mutate: createStatus } = trpc.kanban.createStatus.useMutation();
 
   const [boardForm, setBoardForm] = useState<{
     title: string;
@@ -79,7 +78,7 @@ export const NewBoardModal = ({
       const createdBoard = await createBoard({ title: boardForm.title });
 
       for (const column of boardForm.columns) {
-        createStatuses({
+        createStatus({
           boardId: createdBoard.id,
           title: column,
         });
