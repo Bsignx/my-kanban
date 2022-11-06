@@ -102,24 +102,13 @@ export const kanbanRouter = router({
         },
       });
     }),
-  createStatuses: publicProcedure
+  createStatus: publicProcedure
     .input(z.object({ boardId: z.number(), title: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.status.createMany({
-        data: [
-          {
-            title: input.title,
-            boardId: input.boardId,
-          },
-          {
-            title: input.title,
-            boardId: input.boardId,
-          },
-          {
-            title: input.title,
-            boardId: input.boardId,
-          },
-        ],
+      return ctx.prisma.status.create({
+        data: {
+          ...input,
+        },
       });
     }),
 });
