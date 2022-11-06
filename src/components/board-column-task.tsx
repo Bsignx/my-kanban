@@ -1,12 +1,8 @@
 import { Box, useColorModeValue, useDisclosure } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useKanban } from '../contexts/kanban-context';
+import { useState } from 'react';
 import { Task } from '../types/domain';
 import { trpc } from '../utils/trpc';
-import { Checkbox } from './shared/checkbox';
 
-import { Modal } from './shared/modal';
-import { Select } from './shared/select';
 import { Text } from './shared/text';
 import { TaskDetailModal } from './task-detail-modal';
 
