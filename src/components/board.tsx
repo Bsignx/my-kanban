@@ -8,7 +8,8 @@ import { FilledBoard } from './filled-board';
 import { VoidBoard } from './void-board';
 
 export const Board = () => {
-  const { tasksByStatus, isLoadingStatusesByBoardIdData } = useKanban();
+  const { tasksByStatus, isLoadingStatusesByBoardIdData, activeBoard } =
+    useKanban();
 
   const isFilled = Object.keys(tasksByStatus).length > 0;
 
@@ -19,7 +20,10 @@ export const Board = () => {
       ) : (
         <Box p="6">
           {isFilled ? (
-            <FilledBoard tasksByStatus={tasksByStatus} />
+            <FilledBoard
+              tasksByStatus={tasksByStatus}
+              activeBoardId={activeBoard?.id}
+            />
           ) : (
             <VoidBoard />
           )}
