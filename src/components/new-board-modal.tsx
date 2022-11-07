@@ -114,7 +114,7 @@ export const NewBoardModal = ({ isOpen, onClose }: Props) => {
           Board Columns
         </Text>
         {boardForm?.columns?.map((column, index) => (
-          <Flex mb="4">
+          <Flex mb="4" key={index}>
             <TextField
               value={column}
               onChange={(value: string) =>

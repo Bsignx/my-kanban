@@ -119,7 +119,7 @@ export const NewTaskModal = ({ isOpen, onClose }: Props) => {
           Subtasks
         </Text>
         {subtasks.map((subtask, index) => (
-          <Flex mb="4">
+          <Flex mb="4" key={`${subtask.title}-${index}`}>
             <TextField
               key={index}
               value={subtask.title}

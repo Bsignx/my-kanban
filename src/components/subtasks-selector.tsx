@@ -39,7 +39,13 @@ export const SubtasksSelector = ({
         {title}
       </Text>
       {subtasks?.map((subtask, index) => (
-        <Box bgColor={checkboxBgColor} mb="2" p="2" borderRadius="sm">
+        <Box
+          bgColor={checkboxBgColor}
+          mb="2"
+          p="2"
+          borderRadius="sm"
+          key={subtask.id}
+        >
           <Checkbox
             key={subtask.id}
             _checked={{
