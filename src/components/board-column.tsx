@@ -25,7 +25,7 @@ export const BoardColumn = ({
   boardTitle: string;
   tasks: Task[];
 }) => (
-  <Box>
+  <Box h="100%">
     <Text
       variant="h2"
       textTransform="uppercase"
@@ -51,8 +51,7 @@ export const BoardColumn = ({
           alignItems="start"
           w="280px"
           spacing="5"
-          h="100%"
-          minH="50vh"
+          h="90%"
           ref={provided.innerRef}
           {...provided.droppableProps}
         >

@@ -34,6 +34,7 @@ const Home: NextPage = () => {
       `
         }
         h="100vh"
+        overflow="hidden"
       >
         <GridItem gridArea="header">
           <Header />
@@ -41,7 +42,12 @@ const Home: NextPage = () => {
         <GridItem gridArea="sidemenu" bgColor={sideMenuBgColor}>
           <SideMenu onClick={handleHide} isHidden={isHidden} />
         </GridItem>
-        <GridItem gridArea="main" bgColor={mainBgColor}>
+        <GridItem
+          gridArea="main"
+          bgColor={mainBgColor}
+          maxW={isHidden ? '100vw' : 'calc(100vw - 300px)'}
+          maxH="calc(100vh - 100px)"
+        >
           <Board />
         </GridItem>
       </Grid>
