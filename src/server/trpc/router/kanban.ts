@@ -14,6 +14,18 @@ export const kanbanRouter = router({
         },
       });
     }),
+  updateBoard: publicProcedure
+    .input(z.object({ id: z.number(), title: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.board.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          title: input.title,
+        },
+      });
+    }),
   getTasks: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.task.findMany();
   }),
@@ -108,6 +120,18 @@ export const kanbanRouter = router({
       return ctx.prisma.status.create({
         data: {
           ...input,
+        },
+      });
+    }),
+  updateStatus: publicProcedure
+    .input(z.object({ id: z.number(), title: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.status.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          title: input.title,
         },
       });
     }),
