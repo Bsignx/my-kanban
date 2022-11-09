@@ -5,6 +5,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Task } from '../types/domain';
 import { trpc } from '../utils/trpc';
 import { BoardColumn } from './board-column';
+import { BoardNewColumn } from './board-new-column';
 
 type Props = {
   tasksByStatus: Record<string, Task[]>;
@@ -62,7 +63,29 @@ export const FilledBoard = ({ tasksByStatus, activeBoardId }: Props) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <HStack spacing="6" overflow="auto" maxW="77vw" alignItems="start">
+      <HStack
+        spacing="6"
+        overflow="auto"
+        w="100%"
+        h="100%"
+        css={{
+          '&::-webkit-scrollbar': {
+            width: '6px',
+            borderRadius: '8px',
+            height: '6px',
+          },
+          '&::-webkit-scrollbar-track': {
+            backgroundColor: 'rgba(43, 44, 55, 0.6)',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'gray',
+            borderRadius: '8px',
+          },
+          '&::-webkit-scrollbar-thumb:hover': {
+            backgroundColor: 'darkgray',
+          },
+        }}
+      >
         {Object.entries(tasksByStatus).map(([status, tasks], index) => (
           <BoardColumn
             key={`${status}-${index}`}
@@ -71,6 +94,7 @@ export const FilledBoard = ({ tasksByStatus, activeBoardId }: Props) => {
             tasks={tasks}
           />
         ))}
+        <BoardNewColumn />
       </HStack>
     </DragDropContext>
   );
