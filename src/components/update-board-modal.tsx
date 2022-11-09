@@ -21,9 +21,26 @@ type Props = {
 };
 
 export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
-  const { mutate: updateBoard } = trpc.kanban.updateBoard.useMutation();
-  const { mutate: updateStatus } = trpc.kanban.updateStatus.useMutation();
-  const { mutate: createStatus } = trpc.kanban.createStatus.useMutation();
+  const { invalidate } = trpc.useContext();
+
+  const commonUseMutationOptions = {
+    onSuccess: () => {
+      invalidate();
+    },
+  };
+
+  const { mutate: updateBoard } = trpc.kanban.updateBoard.useMutation(
+    commonUseMutationOptions
+  );
+  const { mutateAsync: updateStatus } = trpc.kanban.updateStatus.useMutation(
+    commonUseMutationOptions
+  );
+  const { mutateAsync: createStatus } = trpc.kanban.createStatus.useMutation(
+    commonUseMutationOptions
+  );
+  const { mutateAsync: deleteStatus } = trpc.kanban.deleteStatus.useMutation(
+    commonUseMutationOptions
+  );
 
   const { activeBoard, statusesByBoardIdData } = useKanban();
 
@@ -80,34 +97,54 @@ export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const shouldUpdate =
-      formData.title && formData.columns.length > 0 && activeBoard?.id;
+    try {
+      const shouldUpdate =
+        formData.title && formData.columns.length > 0 && activeBoard?.id;
 
-    if (!shouldUpdate) return;
+      if (!shouldUpdate) return;
 
-    updateBoard({
-      id: activeBoard?.id,
-      title: formData.title,
-    });
+      updateBoard({
+        id: activeBoard?.id,
+        title: formData.title,
+      });
 
-    formData.columns.forEach((updatedStatus) => {
-      const oldStatus = statusesByBoardIdData.find(
+      formData.columns.forEach(async (updatedStatus) => {
+        const oldStatus = statusesByBoardIdData.find(
+          (status) =>
+            status.id === updatedStatus.id && status.boardId === activeBoard?.id
+        );
+
+        if (oldStatus && oldStatus?.id) {
+          await updateStatus({
+            id: oldStatus.id,
+            title: updatedStatus.title,
+          });
+        } else {
+          await createStatus({
+            title: updatedStatus.title,
+            boardId: activeBoard?.id,
+          });
+        }
+      });
+
+      const formDataStatusIds = formData.columns.map((column) => column.id);
+
+      const statusToDelete = statusesByBoardIdData.filter(
         (status) =>
-          status.id === updatedStatus.id && status.boardId === activeBoard?.id
+          !formDataStatusIds.includes(status.id) &&
+          status.boardId === activeBoard?.id
       );
 
-      if (oldStatus && oldStatus?.id) {
-        updateStatus({
-          id: oldStatus.id,
-          title: updatedStatus.title,
-        });
-      } else {
-        createStatus({
-          title: updatedStatus.title,
-          boardId: activeBoard?.id,
-        });
-      }
-    });
+      statusToDelete.forEach(async (status) => {
+        if (!status.id) return;
+
+        await deleteStatus({ id: status.id });
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      onClose();
+    }
   };
 
   return (

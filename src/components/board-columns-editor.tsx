@@ -41,6 +41,7 @@ export const BoardColumnsEditor = ({
 
           <Box
             as="button"
+            type="button"
             ml="4"
             aria-label="Remove column"
             onClick={() => onRemoveColumn(index)}

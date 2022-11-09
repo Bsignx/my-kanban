@@ -135,4 +135,13 @@ export const kanbanRouter = router({
         },
       });
     }),
+  deleteStatus: publicProcedure
+    .input(z.object({ id: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.status.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    }),
 });
