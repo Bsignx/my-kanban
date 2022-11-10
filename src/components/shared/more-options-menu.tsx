@@ -4,6 +4,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  useColorModeValue,
 } from '@chakra-ui/react';
 
 import { MoreOptions as MoreOptionsIcon } from './icons/more-options';
@@ -17,6 +18,8 @@ type Props = {
 };
 
 export const MoreOptionsMenu = ({ options }: Props) => {
+  const bgColor = useColorModeValue('light.100', 'dark.300');
+
   return (
     <Menu>
       <MenuButton
@@ -25,12 +28,12 @@ export const MoreOptionsMenu = ({ options }: Props) => {
         icon={<MoreOptionsIcon />}
         variant="ghost"
       />
-      <MenuList bgColor="dark.300" border="none" p="4">
+      <MenuList bgColor={bgColor} border="none" p="4">
         {options.map((option) => (
           <MenuItem
             key={option.label}
             onClick={option.onClick}
-            bgColor="dark.300"
+            bgColor={bgColor}
             fontWeight="500"
             color={option.color || 'dark.10'}
           >
