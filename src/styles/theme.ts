@@ -27,7 +27,7 @@ export const colors = {
     400: '#A8A4FF',
     500: '#A8A4FF',
   },
-  checkbox: {
+  checkboxScheme: {
     100: '#A8A4FF',
     200: '#A8A4FF',
     300: '#A8A4FF',
