@@ -26,6 +26,13 @@ export const kanbanRouter = router({
         },
       });
     }),
+  deleteBoard: publicProcedure.input(z.number()).mutation(({ ctx, input }) => {
+    return ctx.prisma.board.delete({
+      where: {
+        id: input,
+      },
+    });
+  }),
   getTasks: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.task.findMany();
   }),
@@ -51,6 +58,15 @@ export const kanbanRouter = router({
       return ctx.prisma.task.create({
         data: {
           ...input,
+        },
+      });
+    }),
+  deleteTask: publicProcedure
+    .input(z.object({ taskId: z.number() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.task.delete({
+        where: {
+          id: input.taskId,
         },
       });
     }),
@@ -102,6 +118,15 @@ export const kanbanRouter = router({
         },
         data: {
           isDone: input.isDone,
+        },
+      });
+    }),
+  deleteSubtasksByTaskId: publicProcedure
+    .input(z.number())
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.subtask.deleteMany({
+        where: {
+          taskId: input,
         },
       });
     }),
