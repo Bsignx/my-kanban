@@ -27,11 +27,13 @@ export const SideMenuList = ({ containerProps }: Props) => {
     }
   }, [boards?.length]);
 
+  const boardsQuantity = boards?.length;
+
   return (
     <>
       <Flex {...containerProps} flexDir="column">
         <Text variant="h2" textTransform="uppercase" color="dark.10">
-          all boards (1)
+          all boards ({boardsQuantity})
         </Text>
         <VStack alignItems="start" pt="8" spacing="6">
           {boards?.map((board) => (
