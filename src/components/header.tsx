@@ -1,14 +1,17 @@
 import {
-  Heading,
   Box,
   Flex,
+  HStack,
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react';
-import { NewTaskModal } from './new-task-modal';
 
+import { DeleteBoardDialog } from './delete-board-dialog';
+import { NewTaskModal } from './new-task-modal';
 import { Button } from './shared/button';
+import { MoreOptionsMenu } from './shared/more-options-menu';
 import { Text } from './shared/text';
+import { UpdateBoardModal } from './update-board-modal';
 
 export const Header = () => {
   const headingColor = useColorModeValue('dark.200', 'light.100');
@@ -16,10 +19,32 @@ export const Header = () => {
   const headerBorderColor = useColorModeValue('light.300', 'dark.50');
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenMoreOptions,
+    onOpen: onOpenMoreOptions,
+    onClose: onCloseMoreOptions,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenDeleteBoardDialog,
+    onOpen: onOpenDeleteBoardDialog,
+    onClose: onCloseDeleteBoardDialog,
+  } = useDisclosure();
 
   const handleClickAddTask = () => {
     onOpen();
   };
+
+  const moreOptions = [
+    {
+      label: 'Edit board',
+      onClick: () => onOpenMoreOptions(),
+    },
+    {
+      label: 'Delete board',
+      onClick: () => onOpenDeleteBoardDialog(),
+      color: 'red.400',
+    },
+  ];
 
   return (
     <>
@@ -36,10 +61,21 @@ export const Header = () => {
           <Text variant="h1" color={headingColor} fontSize="2xl">
             Platform Launch
           </Text>
-          <Button onClick={handleClickAddTask}>+ Add New Task</Button>
+          <HStack spacing="2">
+            <Button onClick={handleClickAddTask}>+ Add New Task</Button>
+            <MoreOptionsMenu options={moreOptions} />
+          </HStack>
         </Flex>
       </Box>
       <NewTaskModal isOpen={isOpen} onClose={onClose} />
+      <UpdateBoardModal
+        isOpen={isOpenMoreOptions}
+        onClose={onCloseMoreOptions}
+      />
+      <DeleteBoardDialog
+        isOpen={isOpenDeleteBoardDialog}
+        onClose={onCloseDeleteBoardDialog}
+      />
     </>
   );
 };
