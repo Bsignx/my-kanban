@@ -7,7 +7,7 @@ export const Checkbox = ({ children, ...delegated }: Props) => {
   return (
     <ChakraCheckbox
       iconColor="light.100"
-      colorScheme="checkbox"
+      colorScheme="checkboxScheme"
       fontSize="small"
       display="flex"
       alignItems="center"
