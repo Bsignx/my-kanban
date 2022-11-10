@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useKanban } from '../contexts/kanban-context';
 import { trpc } from '../utils/trpc';
@@ -49,10 +49,12 @@ export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
     title: status.title,
   }));
 
-  const [formData, setFormData] = useState<FormDataState>({
+  const initialFormData: FormDataState = {
     title: activeBoard?.title || '',
     columns: statuses,
-  });
+  };
+
+  const [formData, setFormData] = useState<FormDataState>(initialFormData);
 
   const statusTitles = formData.columns.map((column) => column.title);
 
@@ -146,6 +148,10 @@ export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
       onClose();
     }
   };
+
+  useEffect(() => {
+    setFormData(initialFormData);
+  }, [activeBoard?.title]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Edit Board">
