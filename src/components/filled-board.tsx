@@ -22,7 +22,7 @@ export const FilledBoard = ({ tasksByStatus, activeBoardId }: Props) => {
 
   const handleDragEnd = async (result: DropResult) => {
     if (!result.destination) return;
-    console.log(result);
+
     const { source, destination, draggableId } = result;
 
     if (source.droppableId === destination.droppableId || !activeBoardId)

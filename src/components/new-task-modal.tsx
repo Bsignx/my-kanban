@@ -33,8 +33,8 @@ export const NewTaskModal = ({ isOpen, onClose }: Props) => {
   const { mutateAsync: createTask } = trpc.kanban.createTask.useMutation();
   const { mutate: createSubtask } = trpc.kanban.createSubtask.useMutation();
 
-  const { statusesByBoardIdData, activeBoard } = useKanban();
-  console.log(statusesByBoardIdData);
+  const { statusesByBoardIdData, activeBoard, canCreateTask } = useKanban();
+
   const [task, setTask] = useState<TaskState>({});
   const [subtasks, setSubtasks] = useState<SubtasksState>([{ title: '' }]);
   const [currentStatus, setCurrentStatus] = useState<string>(
@@ -51,7 +51,13 @@ export const NewTaskModal = ({ isOpen, onClose }: Props) => {
     e.preventDefault();
 
     // todo: add alert for empty fields
-    if (!task?.title || !task?.description || !activeBoard?.id) return;
+    if (
+      !task?.title ||
+      !task?.description ||
+      !activeBoard?.id ||
+      !canCreateTask
+    )
+      return;
 
     const newTask = await createTask({
       title: task.title,

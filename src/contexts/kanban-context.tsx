@@ -3,6 +3,8 @@ import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { Board, Status, Task } from '../types/domain';
 import { trpc } from '../utils/trpc';
 
+const maxItems = 8;
+
 type KanbanContextType = {
   boards?: Board[];
   activeBoard: Board | null;
@@ -10,6 +12,9 @@ type KanbanContextType = {
   tasksByStatus: Record<string, Task[]>;
   statusesByBoardIdData: Status[];
   isLoadingStatusesByBoardIdData: boolean;
+  canCreateBoard: boolean;
+  canCreateStatus: boolean;
+  canCreateTask: boolean;
 };
 
 export const KanbanContext = createContext<KanbanContextType>(
@@ -59,10 +64,22 @@ export const KanbanContextProvider = ({
     {}
   );
 
+  const boardsQuantity = boardsData?.length || 0;
+  const canCreateBoard = boardsQuantity < maxItems;
+
+  const statusesQuantity = statusesByBoardIdData.length || 0;
+  const canCreateStatus = statusesQuantity < maxItems;
+
+  const tasksQuantity = tasksByBoardIdData.length || 0;
+  const canCreateTask = tasksQuantity < maxItems;
+
   return (
     <KanbanContext.Provider
       value={{
         boards: boardsData,
+        canCreateBoard,
+        canCreateStatus,
+        canCreateTask,
         activeBoard,
         tasksByStatus,
         updateActiveBoard: setActiveBoard,

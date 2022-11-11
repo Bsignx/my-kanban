@@ -7,6 +7,7 @@ import { Modal } from './shared/modal';
 import { TextField } from './shared/text-field';
 
 import { BoardColumnsEditor } from './board-columns-editor';
+import { useKanban } from '../contexts/kanban-context';
 
 const initialBoardState = {
   title: '',
@@ -19,6 +20,8 @@ type Props = {
 };
 
 export const NewBoardModal = ({ isOpen, onClose }: Props) => {
+  const { canCreateBoard } = useKanban();
+
   const utils = trpc.useContext();
 
   const { mutateAsync: createBoard } = trpc.kanban.createBoard.useMutation();
@@ -59,6 +62,8 @@ export const NewBoardModal = ({ isOpen, onClose }: Props) => {
 
   const handleBoardFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!canCreateBoard) return;
 
     const hasColumnsContent = boardForm.columns?.every(
       (column) => column.trim().length > 0

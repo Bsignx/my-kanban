@@ -23,6 +23,8 @@ type Props = {
 export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
   const { invalidate } = trpc.useContext();
 
+  const { canCreateStatus } = useKanban();
+
   const commonUseMutationOptions = {
     onSuccess: () => {
       invalidate();
@@ -115,6 +117,8 @@ export const UpdateBoardModal = ({ isOpen, onClose }: Props) => {
           (status) =>
             status.id === updatedStatus.id && status.boardId === activeBoard?.id
         );
+
+        if (!canCreateStatus) return;
 
         if (oldStatus && oldStatus?.id) {
           await updateStatus({
