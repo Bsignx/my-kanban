@@ -6,8 +6,8 @@ const config: ThemeConfig = {
 };
 
 export const colors = {
-  primary: '#635FC7',
-  secondary: '#A8A4FF',
+  primary: '#5FC7C1',
+  secondary: '#A4D3FF',
   dark: {
     10: '#828FA3',
     50: '#3E3F4E',
@@ -21,18 +21,18 @@ export const colors = {
   light: { 100: '#FFFFFF', 200: '#F4F7FD', 300: '#E4EBFA' },
   alert: { 100: '#FF9898', 200: '#EA5555' },
   switchScheme: {
-    100: '#A8A4FF',
-    200: '#A8A4FF',
-    300: '#A8A4FF',
-    400: '#A8A4FF',
-    500: '#A8A4FF',
+    100: '#5FC7C1',
+    200: '#5FC7C1',
+    300: '#5FC7C1',
+    400: '#5FC7C1',
+    500: '#5FC7C1',
   },
   checkboxScheme: {
-    100: '#A8A4FF',
-    200: '#A8A4FF',
-    300: '#A8A4FF',
-    400: '#A8A4FF',
-    500: '#A8A4FF',
+    100: '#5FC7C1',
+    200: '#5FC7C1',
+    300: '#5FC7C1',
+    400: '#5FC7C1',
+    500: '#5FC7C1',
   },
 };
 

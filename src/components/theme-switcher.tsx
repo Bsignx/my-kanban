@@ -16,7 +16,7 @@ export const ThemeSwitcher = () => {
         colorScheme="switchScheme"
         css={{
           '.chakra-switch__track': {
-            backgroundColor: '#A8A4FF',
+            backgroundColor: '#5FC7C1',
           },
         }}
         aria-label={isDark ? 'Activate light mode' : 'Activate dark mode'}
